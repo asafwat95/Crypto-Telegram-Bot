@@ -1,19 +1,4 @@
 
-name: Send Direct Telegram Test Message
-        run: |
-          curl -X POST \
-               -H 'Content-Type: application/json' \
-               -d '{"chat_id": "${{ secrets.TELEGRAM_CHAT_ID }}", "text": "Hello from GitHub Actions! This is a direct test message."}' \
-               https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-
-
-
-
-
 
 name: CryptoHopper Telegram Notifier
 
