@@ -1,0 +1,30 @@
+name: CryptoHopper Telegram Notifier
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # تشغيل كل دقيقة
+  workflow_dispatch:        # لتشغيله يدويًا عند الحاجة
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Run notifier script
+      env:
+        HOPPER_ID: ${{ secrets.HOPPER_ID }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python script.py
