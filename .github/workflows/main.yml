@@ -11,6 +11,8 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # This is the line that grants write access
 
     steps:
       # Step 1: Check out your repository code
