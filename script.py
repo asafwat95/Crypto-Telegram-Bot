@@ -48,6 +48,7 @@ def save_last_trade_id(trade_id):
         json.dump({"last_trade_id": trade_id}, f)
 
 def main():
+    send_telegram_message("✅ اختبار: السكربت يعمل الآن بشكل طبيعي.")
     trades = get_trades()
     if not trades:
         print("No trades found.")
