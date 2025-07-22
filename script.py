@@ -16,11 +16,13 @@ def get_trades():
     headers = {
         "Authorization": f"Bearer {ACCESS_TOKEN}"
     }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
         return response.json().get("data", {}).get("trades", [])
-    else:
-        print("Error fetching trades:", response.text)
+    except requests.exceptions.RequestException as e:
+        error_message = f"❌ خطأ أثناء جلب البيانات من CryptoHopper:\n{str(e)}"
+        send_telegram_message(error_message)
         return []
 
 def send_telegram_message(message):
@@ -29,7 +31,10 @@ def send_telegram_message(message):
         "chat_id": TELEGRAM_CHAT_ID,
         "text": message
     }
-    requests.post(url, data=payload)
+    try:
+        requests.post(url, data=payload)
+    except Exception as e:
+        print(f"خطأ أثناء إرسال رسالة Telegram: {e}")
 
 def load_last_trade_id():
     if os.path.exists(LAST_TRADE_FILE):
@@ -50,7 +55,6 @@ def main():
 
     last_trade_id = load_last_trade_id()
 
-    # الصفقات مرتبة من الأحدث للأقدم
     new_trades = []
     for trade in trades:
         if trade["id"] == last_trade_id:
@@ -58,7 +62,6 @@ def main():
         new_trades.append(trade)
 
     if new_trades:
-        # الأقدم أولاً
         for trade in reversed(new_trades):
             msg = f"💹 صفقة جديدة:\n\n"
             msg += f"🔸 العملة: {trade.get('currency')}\n"
