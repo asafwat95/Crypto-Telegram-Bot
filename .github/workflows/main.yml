@@ -1,53 +1,15 @@
-name: Cryptohopper Telegram Bot
+name: Send Welcome Telegram Message
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
+  workflow_dispatch:  # علشان تشغله يدوي من GitHub
 
 jobs:
-  run-bot:
+  send-welcome:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-      # Step 1: Check out your repository code
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      # Step 1.5: Send welcome message on Telegram
-      - name: Send welcome message on Telegram
+      - name: Send welcome message to Telegram
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-          -d text="👋 تم تشغيل GitHub Action بنجاح!\n🚀 جاري تحليل صفقات Cryptohopper."
-
-      # Step 2: Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
-
-      # Step 3: Install dependencies from your requirements.txt file
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      # Step 4: Run the Python script
-      - name: Run the bot script
-        env:
-          HOPPER_ID: ${{ secrets.HOPPER_ID }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python main.py
-
-      # Step 5: Commit and push the updated last_trade_id.txt
-      - name: Commit and push if changed
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add last_trade_id.txt
-          git diff --staged --quiet || (git commit -m "Update last trade ID" && git push)
+          -d text="👋 أهلاً بك! تم تشغيل GitHub Action بنجاح 🚀"
