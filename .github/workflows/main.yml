@@ -21,7 +21,13 @@ jobs:
     - name: Install dependencies
       run: pip install requests
 
-    - name: Run notifier script
+    - name: 📩 Send welcome message to Telegram
+      run: |
+        curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+        -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+        -d text="🤖 تم تشغيل CryptoHopper Notifier على GitHub Actions! ✅"
+
+    - name: ▶️ Run notifier script
       env:
         HOPPER_ID: ${{ secrets.HOPPER_ID }}
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
