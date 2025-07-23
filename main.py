@@ -2,8 +2,8 @@ import requests
 import os
 
 # إعداد المتغيرات من البيئة أو استبدلهم يدويًا بالقيم
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN") or "توكن_البوت"
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID") or "شات_ID"
+TELEGRAM_BOT_TOKEN = "7974713193:AAGaE-sjvB7kTAt_yg6Mp68_xE5lC_czdA8"
+TELEGRAM_CHAT_ID =  "@Cryptoships95"
 
 # نص الرسالة الترحيبية
 message = "👋 أهلاً بك! هذا اختبار لإرسال رسالة ترحيبية عبر البوت على Telegram."
