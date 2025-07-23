@@ -20,7 +20,7 @@ jobs:
 
       - name: Download last_trade_id (if exists)
         continue-on-error: true
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: last-trade-id
           path: .
@@ -41,7 +41,7 @@ jobs:
           rm -rf last-trade-id || true
 
       - name: Upload updated last_trade_id.txt
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: last-trade-id
           path: last_trade_id.txt
