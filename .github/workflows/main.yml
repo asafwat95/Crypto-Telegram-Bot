@@ -1,10 +1,7 @@
 name: Cryptohopper Telegram Bot
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-  # Runs the job every 5 minutes
   schedule:
     - cron: '*/5 * * * *'
 
@@ -12,18 +9,25 @@ jobs:
   run-bot:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # This is the line that grants write access
+      contents: write
 
     steps:
       # Step 1: Check out your repository code
       - name: Check out code
         uses: actions/checkout@v3
 
+      # Step 1.5: Send welcome message on Telegram
+      - name: Send welcome message on Telegram
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d text="👋 تم تشغيل GitHub Action بنجاح!\n🚀 جاري تحليل صفقات Cryptohopper."
+
       # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12' # Should match your local version
+          python-version: '3.12'
 
       # Step 3: Install dependencies from your requirements.txt file
       - name: Install dependencies
@@ -46,5 +50,4 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add last_trade_id.txt
-          # Only commit and push if there are changes
-          git diff --staged --quiet || (git commit -m "Update last trade ID" && git push) 
+          git diff --staged --quiet || (git commit -m "Update last trade ID" && git push)
