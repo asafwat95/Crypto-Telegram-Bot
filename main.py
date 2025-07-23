@@ -2,6 +2,7 @@ import requests
 import os
 import json
 
+
 # --- Configuration ---
 HOPPER_ID = os.environ.get("HOPPER_ID")
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
