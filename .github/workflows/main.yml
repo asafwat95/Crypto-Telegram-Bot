@@ -1,15 +1,15 @@
-name: Send Welcome Telegram Message
+name: Send Telegram Welcome
 
 on:
-  workflow_dispatch:  # علشان تشغله يدوي من GitHub
+  workflow_dispatch: # يتم تشغيله يدويًا من GitHub
 
 jobs:
-  send-welcome:
+  send-message:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send welcome message to Telegram
-        run: |
-          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-          -d text="👋 أهلاً بك! تم تشغيل GitHub Action بنجاح 🚀"
+    - name: Send welcome message to Telegram
+      run: |
+        curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage \
+        -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+        -d text="🎉 تم تشغيل GitHub Action! أهلاً وسهلاً بك في القناة."
