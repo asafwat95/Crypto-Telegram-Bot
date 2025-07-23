@@ -22,7 +22,7 @@ def save_last_trade_id(trade_id):
     with open(LAST_TRADE_ID_FILE, 'w') as f:
         f.write(str(trade_id))
 
-def fetch_recent_trades():
+def fetch_latest_trade():
     endpoint = f"/hopper/{HOPPER_ID}/trade"
     url = API_BASE_URL + endpoint
 
@@ -32,7 +32,7 @@ def fetch_recent_trades():
     }
 
     params = {
-        "limit": 20
+        "limit": 1  # احصل فقط على آخر صفقة
     }
 
     try:
@@ -40,11 +40,11 @@ def fetch_recent_trades():
         response.raise_for_status()
         data = response.json()
 
-        if "data" in data and "trades" in data["data"]:
-            return data["data"]["trades"]
+        if "data" in data and "trades" in data["data"] and len(data["data"]["trades"]) > 0:
+            return data["data"]["trades"][0]
         else:
-            print("Could not find 'trades' in the API response.")
-            return []
+            print("No trades found in the response.")
+            return None
     except requests.exceptions.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
         print(f"Response Body: {response.text}")
@@ -130,33 +130,23 @@ def send_telegram_message(message):
 
 # --- Main execution ---
 if __name__ == "__main__":
-    print("Checking for new trades...")
+    print("Checking for latest trade...")
 
     last_known_id = get_last_trade_id()
     print(f"Last known trade ID: {last_known_id}")
 
-    recent_trades = fetch_recent_trades()
+    latest_trade = fetch_latest_trade()
 
-    if recent_trades is not None:
-        new_trades = []
-        for trade in recent_trades:
-            if str(trade['id']) == last_known_id:
-                break
-            new_trades.append(trade)
+    if latest_trade:
+        latest_id = str(latest_trade['id'])
 
-        if not new_trades:
-            print("No new trades found.")
+        if latest_id != last_known_id:
+            print(f"New trade detected: {latest_id}")
+            formatted_message = format_trade_message(latest_trade)
+            if send_telegram_message(formatted_message):
+                save_last_trade_id(latest_id)
+                print(f"Saved new latest trade ID: {latest_id}")
         else:
-            new_trades.reverse()
-            print(f"\nFound {len(new_trades)} new trade(s) to process.")
-
-            for trade in new_trades:
-                print(f"  -> Processing Trade ID: {trade.get('id')}")
-                formatted_message = format_trade_message(trade)
-                send_telegram_message(formatted_message)
-
-            newest_trade_id = recent_trades[0]['id']
-            save_last_trade_id(newest_trade_id)
-            print(f"\nSaved new latest trade ID: {newest_trade_id}")
+            print("No new trade found.")
     else:
-        print("\nFailed to fetch recent trades.")
+        print("Failed to fetch latest trade.")
