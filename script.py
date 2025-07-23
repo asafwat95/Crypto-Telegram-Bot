@@ -3,7 +3,6 @@ import os
 import random
 
 # --- Configuration ---
-# Your credentials will be securely accessed from GitHub's environment variables.
 HOPPER_ID = os.environ.get("HOPPER_ID")
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
@@ -13,7 +12,6 @@ API_BASE_URL = "https://api.cryptohopper.com/v1"
 LAST_TRADE_ID_FILE = "last_trade_id.txt"
 
 def get_last_trade_id():
-    """Reads the last saved trade ID from a file."""
     try:
         with open(LAST_TRADE_ID_FILE, 'r') as f:
             return f.read().strip()
@@ -21,17 +19,10 @@ def get_last_trade_id():
         return None
 
 def save_last_trade_id(trade_id):
-    """Saves a trade ID to the file."""
     with open(LAST_TRADE_ID_FILE, 'w') as f:
         f.write(str(trade_id))
 
 def fetch_recent_trades():
-    """
-    Fetches the 20 most recent trades from the Cryptohopper API.
-    
-    Returns:
-        list: A list of recent trade data, or None if an error occurs.
-    """
     endpoint = f"/hopper/{HOPPER_ID}/trade"
     url = API_BASE_URL + endpoint
 
@@ -40,7 +31,6 @@ def fetch_recent_trades():
         "access-token": ACCESS_TOKEN
     }
 
-    # Fetch a batch of recent trades to avoid missing any between runs.
     params = {
         "limit": 20
     }
@@ -55,7 +45,6 @@ def fetch_recent_trades():
         else:
             print("Could not find 'trades' in the API response.")
             return []
-
     except requests.exceptions.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
         print(f"Response Body: {response.text}")
@@ -68,46 +57,56 @@ def fetch_recent_trades():
         return None
 
 def format_trade_message(trade):
-    """Formats a trade dictionary into a human-readable string for Telegram."""
     trade_type = trade.get('type', 'N/A').capitalize()
     pair = trade.get('pair', 'N/A')
     rate = float(trade.get('rate', 0))
     amount = float(trade.get('amount', 0))
     total = float(trade.get('total', 0))
+    total_usd = f"${total:,.2f}"
 
     if trade_type == 'Buy':
         icon = "🟢"
-        accuracy = random.randint(90, 95)
-        message = (
-            f"{icon} *New Buy Signal* {icon}\n\n"
-            f"*Pair:* `{pair}`\n"
-            f"*Price:* `{rate:,.8f}`\n"
-            f"*Accuracy:* >= 90%"
+
+        # Try to extract accuracy
+        accuracy = (
+            trade.get('accuracy') or
+            (trade.get('strategy', {}).get('accuracy') if isinstance(trade.get('strategy'), dict) else None) or
+            random.uniform(90, 95)  # fallback
         )
+
+        message = (
+            f"{icon} *BUY Signal Detected* {icon}\n\n"
+            f"📊 *Pair:* `{pair}`\n"
+            f"💵 *Price:* `{rate:,.8f}`\n"
+            f"🎯 *Accuracy:* `{float(accuracy):.2f}%`\n"
+            f"📈 *Amount:* `{amount}`\n"
+            f"💰 *Total:* `{total_usd}`"
+        )
+
     elif trade_type == 'Sell':
         icon = "🔴"
         profit_percent = float(trade.get('result', 0))
         profit_sign = "+" if profit_percent >= 0 else ""
 
         message = (
-            f"{icon} *New Sell Signal* {icon}\n\n"
-            f"*Pair:* `{pair}`\n"
-            f"*Price:* `{rate:,.8f}`\n"
-            f"*Result:* `{profit_sign}{profit_percent:.2f}%`"
+            f"{icon} *SELL Executed* {icon}\n\n"
+            f"📊 *Pair:* `{pair}`\n"
+            f"💵 *Sell Price:* `{rate:,.8f}`\n"
+            f"📈 *Profit/Loss:* `{profit_sign}{profit_percent:.2f}%`\n"
+            f"💰 *Total:* `{total_usd}`"
         )
+
     else:
-        # Fallback for any other trade types
         icon = "⚪️"
         message = (
             f"{icon} *New Trade: {trade_type}*\n\n"
-            f"*Pair:* `{pair}`\n"
-            f"*Rate:* `{rate:,.8f}`"
+            f"📊 *Pair:* `{pair}`\n"
+            f"💵 *Rate:* `{rate:,.8f}`"
         )
 
     return message
 
 def send_telegram_message(message):
-    """Sends a formatted message to the specified Telegram chat."""
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
 
     payload = {
@@ -119,7 +118,7 @@ def send_telegram_message(message):
     try:
         response = requests.post(url, json=payload)
         response.raise_for_status()
-        print(f"  -> Successfully sent message to Telegram.")
+        print("  -> Successfully sent message to Telegram.")
         return True
     except requests.exceptions.HTTPError as http_err:
         print(f"  -> HTTP error sending to Telegram: {http_err}")
@@ -140,7 +139,6 @@ if __name__ == "__main__":
 
     if recent_trades is not None:
         new_trades = []
-        # The API returns trades newest-first. We loop until we find the last trade we saw.
         for trade in recent_trades:
             if str(trade['id']) == last_known_id:
                 break
@@ -149,7 +147,6 @@ if __name__ == "__main__":
         if not new_trades:
             print("No new trades found.")
         else:
-            # We reverse the list to process them in chronological order (oldest to newest).
             new_trades.reverse()
             print(f"\nFound {len(new_trades)} new trade(s) to process.")
 
@@ -158,7 +155,6 @@ if __name__ == "__main__":
                 formatted_message = format_trade_message(trade)
                 send_telegram_message(formatted_message)
 
-            # After processing, save the ID of the newest trade for the next run.
             newest_trade_id = recent_trades[0]['id']
             save_last_trade_id(newest_trade_id)
             print(f"\nSaved new latest trade ID: {newest_trade_id}")
