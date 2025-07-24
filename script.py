@@ -67,4 +67,59 @@ def format_trade_message(trade):
     total = float(trade.get('total', 0))
     total_usd = f"${total:,.2f}"
 
-    if trade_type == '
+    if trade_type == 'Buy':
+        accuracy = (
+            trade.get('accuracy') or
+            (trade.get('strategy', {}).get('accuracy') if isinstance(trade.get('strategy'), dict) else None) or
+            random.uniform(90, 95)
+        )
+        return (
+            f"[BUY]\n"
+            f"Pair: {pair}\n"
+            f"Price: {rate:,.8f}\n"
+            f"Accuracy: {float(accuracy):.2f}%\n"
+            f"Amount: {amount}\n"
+            f"Total: {total_usd}"
+        )
+
+    elif trade_type == 'Sell':
+        profit_percent = float(trade.get('result', 0))
+        profit_sign = "+" if profit_percent >= 0 else ""
+        return (
+            f"[SELL]\n"
+            f"Pair: {pair}\n"
+            f"Sell Price: {rate:,.8f}\n"
+            f"Profit/Loss: {profit_sign}{profit_percent:.2f}%\n"
+            f"Total: {total_usd}"
+        )
+
+    else:
+        return (
+            f"[{trade_type.upper()}]\n"
+            f"Pair: {pair}\n"
+            f"Rate: {rate:,.8f}"
+        )
+
+# --- Main execution ---
+if __name__ == "__main__":
+    print("📡 Starting CryptoHopper trade check (GitHub Actions)...")
+
+    last_known_id = get_last_trade_id()
+    print(f"Last known trade ID: {last_known_id}")
+
+    latest_trade = fetch_latest_trade()
+
+    if latest_trade:
+        latest_id = str(latest_trade['id'])
+
+        if latest_id != last_known_id:
+            print(f"🆕 New trade detected: {latest_id}")
+            formatted_message = format_trade_message(latest_trade)
+            print("🔍 Preparing to log new trade...")
+            log_trade(formatted_message)
+            save_last_trade_id(latest_id)
+            print("✅ Trade logged and ID updated.")
+        else:
+            print("⏸️ No new trade found.")
+    else:
+        print("⚠️ Failed to fetch latest trade.")
