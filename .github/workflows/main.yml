@@ -2,7 +2,7 @@ name: CryptoHopper Trade Alerts
 
 on:
   schedule:
-    - cron: "*/2 * * * *"  # كل دقيقة
+    - cron: "*/2 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -32,8 +32,6 @@ jobs:
         env:
           HOPPER_ID: ${{ secrets.HOPPER_ID }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python script.py
 
       - name: Remove old artifact
@@ -45,3 +43,9 @@ jobs:
         with:
           name: last-trade-id
           path: last_trade_id.txt
+
+      - name: Upload trades log
+        uses: actions/upload-artifact@v4
+        with:
+          name: trades-log
+          path: trades_log.txt
