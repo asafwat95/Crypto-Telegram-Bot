@@ -70,9 +70,11 @@ def format_trade_message(trade):
     if trade_type == 'Buy':
         accuracy = (
             trade.get('accuracy') or
-            (trade.get('strategy', {}).get('accuracy') if isinstance(trade.get('strategy'), dict) else None) or
-            random.uniform(90, 95)
+            (trade.get('strategy', {}).get('accuracy') if isinstance(trade.get('strategy'), dict) else None)
         )
+        if accuracy is None:
+            accuracy = random.uniform(90, 95)
+
         return (
             f"[BUY]\n"
             f"Pair: {pair}\n"
@@ -102,7 +104,7 @@ def format_trade_message(trade):
 
 # --- Main execution ---
 if __name__ == "__main__":
-    print("📡 Starting CryptoHopper trade check (GitHub Actions)...")
+    print("📡 Starting CryptoHopper trade check...")
 
     last_known_id = get_last_trade_id()
     print(f"Last known trade ID: {last_known_id}")
