@@ -14,3 +14,10 @@ Accuracy: 91.39%
 Amount: 0.0059
 Total: $22.21
 
+--- 2025-07-26 03:48:38 UTC ---
+[SELL]
+Pair: NEARUSDT
+Sell Price: 2.86200000
+Profit/Loss: +5.27%
+Total: $60.67
+
