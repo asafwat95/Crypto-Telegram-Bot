@@ -42,7 +42,7 @@ def fetch_latest_trade():
     }
 
     params = {
-        "limit": 1
+        "limit": 20
     }
 
     try:
