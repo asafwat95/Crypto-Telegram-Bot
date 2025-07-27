@@ -117,3 +117,10 @@ Sell Price: 3,829.44000000
 Profit/Loss: +4.18%
 Total: $22.98
 
+--- 2025-07-27 23:38:44 UTC ---
+[SELL]
+Pair: NEARUSDT
+Sell Price: 2.94600000
+Profit/Loss: +4.24%
+Total: $60.39
+
