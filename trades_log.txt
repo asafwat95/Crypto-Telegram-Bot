@@ -153,3 +153,10 @@ Sell Price: 3,802.62000000
 Profit/Loss: +1.01%
 Total: $22.44
 
+--- 2025-07-28 23:48:52 UTC ---
+[SELL]
+Pair: CFXUSDT
+Sell Price: 0.19660000
+Profit/Loss: +4.69%
+Total: $23.40
+
