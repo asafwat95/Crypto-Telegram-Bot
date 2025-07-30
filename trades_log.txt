@@ -240,3 +240,10 @@ Accuracy: 91.85%
 Amount: 4452536.0
 Total: $50.80
 
+--- 2025-07-30 15:46:09 UTC ---
+[SELL]
+Pair: ETHUSDT
+Sell Price: 3,793.53000000
+Profit/Loss: +0.65%
+Total: $22.38
+
