@@ -283,3 +283,10 @@ Sell Price: 0.00011673
 Profit/Loss: +0.76%
 Total: $43.05
 
+--- 2025-07-31 08:58:29 UTC ---
+[SELL]
+Pair: FLOKIUSDT
+Sell Price: 0.00011750
+Profit/Loss: +0.93%
+Total: $43.10
+
