@@ -290,3 +290,10 @@ Sell Price: 0.00011750
 Profit/Loss: +0.93%
 Total: $43.10
 
+--- 2025-07-31 09:50:38 UTC ---
+[SELL]
+Pair: XLMUSDT
+Sell Price: 0.42750000
+Profit/Loss: +0.53%
+Total: $274.88
+
