@@ -262,3 +262,10 @@ Sell Price: 0.21180000
 Profit/Loss: +1.44%
 Total: $25.42
 
+--- 2025-07-31 07:00:18 UTC ---
+[SELL]
+Pair: LINKUSDT
+Sell Price: 18.08000000
+Profit/Loss: +1.35%
+Total: $40.68
+
