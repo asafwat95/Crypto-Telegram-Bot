@@ -335,3 +335,10 @@ Sell Price: 109.34000000
 Profit/Loss: +1.20%
 Total: $60.14
 
+--- 2025-08-04 15:49:16 UTC ---
+[SELL]
+Pair: LTCUSDT
+Sell Price: 118.41000000
+Profit/Loss: +5.13%
+Total: $62.17
+
