@@ -378,3 +378,10 @@ Sell Price: 3,893.78000000
 Profit/Loss: +4.24%
 Total: $34.27
 
+--- 2025-08-08 03:59:01 UTC ---
+[SELL]
+Pair: UNIUSDT
+Sell Price: 10.42800000
+Profit/Loss: +2.27%
+Total: $23.78
+
