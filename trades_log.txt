@@ -429,3 +429,10 @@ Accuracy: 92.95%
 Amount: 0.392
 Total: $71.61
 
+--- 2025-08-10 07:55:00 UTC ---
+[SELL]
+Pair: AVAXUSDT
+Sell Price: 23.55000000
+Profit/Loss: -4.03%
+Total: $38.39
+
