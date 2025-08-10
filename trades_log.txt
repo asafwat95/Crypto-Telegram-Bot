@@ -436,3 +436,10 @@ Sell Price: 23.55000000
 Profit/Loss: -4.03%
 Total: $38.39
 
+--- 2025-08-10 08:48:21 UTC ---
+[SELL]
+Pair: TAOUSDT
+Sell Price: 382.20000000
+Profit/Loss: +0.38%
+Total: $543.41
+
