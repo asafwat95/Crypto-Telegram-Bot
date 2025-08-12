@@ -480,3 +480,10 @@ Sell Price: 8.52000000
 Profit/Loss: +0.47%
 Total: $22.49
 
+--- 2025-08-12 21:34:44 UTC ---
+[SELL]
+Pair: VETUSDT
+Sell Price: 0.02585000
+Profit/Loss: +0.22%
+Total: $157.45
+
