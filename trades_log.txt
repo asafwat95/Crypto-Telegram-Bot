@@ -473,3 +473,10 @@ Sell Price: 390.90000000
 Profit/Loss: +0.23%
 Total: $44.91
 
+--- 2025-08-12 20:40:33 UTC ---
+[SELL]
+Pair: ZENUSDT
+Sell Price: 8.52000000
+Profit/Loss: +0.47%
+Total: $22.49
+
