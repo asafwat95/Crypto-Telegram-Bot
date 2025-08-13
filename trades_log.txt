@@ -503,3 +503,10 @@ Accuracy: 94.45%
 Amount: 340.6
 Total: $44.99
 
+--- 2025-08-13 12:41:06 UTC ---
+[SELL]
+Pair: UNIUSDT
+Sell Price: 12.14400000
+Profit/Loss: +6.17%
+Total: $66.79
+
