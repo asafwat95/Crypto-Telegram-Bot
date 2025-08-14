@@ -580,3 +580,10 @@ Accuracy: 90.26%
 Amount: 80.0
 Total: $78.85
 
+--- 2025-08-14 08:33:34 UTC ---
+[SELL]
+Pair: CFXUSDT
+Sell Price: 0.19600000
+Profit/Loss: -6.26%
+Total: $41.94
+
