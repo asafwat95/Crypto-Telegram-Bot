@@ -602,3 +602,10 @@ Sell Price: 0.26208000
 Profit/Loss: -4.96%
 Total: $20.97
 
+--- 2025-08-14 12:56:54 UTC ---
+[SELL]
+Pair: ETHUSDT
+Sell Price: 4,595.75000000
+Profit/Loss: -3.06%
+Total: $969.24
+
