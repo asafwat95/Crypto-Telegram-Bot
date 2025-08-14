@@ -565,3 +565,10 @@ Accuracy: 91.69%
 Amount: 80.0
 Total: $22.06
 
+--- 2025-08-14 04:52:51 UTC ---
+[SELL]
+Pair: PEPEUSDT
+Sell Price: 0.00001243
+Profit/Loss: +0.24%
+Total: $45.06
+
