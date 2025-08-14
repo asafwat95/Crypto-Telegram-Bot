@@ -595,3 +595,10 @@ Accuracy: 90.97%
 Amount: 14.38
 Total: $71.93
 
+--- 2025-08-14 11:57:52 UTC ---
+[SELL]
+Pair: HBARUSDT
+Sell Price: 0.26208000
+Profit/Loss: -4.96%
+Total: $20.97
+
