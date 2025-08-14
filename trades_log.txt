@@ -557,3 +557,11 @@ Accuracy: 92.51%
 Amount: 214.0
 Total: $44.75
 
+--- 2025-08-14 03:54:15 UTC ---
+[BUY]
+Pair: HBARUSDT
+Price: 0.27577000
+Accuracy: 91.69%
+Amount: 80.0
+Total: $22.06
+
