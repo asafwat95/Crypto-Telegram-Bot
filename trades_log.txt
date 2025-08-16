@@ -703,3 +703,10 @@ Sell Price: 23.90000000
 Profit/Loss: -5.01%
 Total: $68.11
 
+--- 2025-08-16 16:59:09 UTC ---
+[SELL]
+Pair: PYTHUSDT
+Sell Price: 0.12380000
+Profit/Loss: +1.98%
+Total: $45.83
+
