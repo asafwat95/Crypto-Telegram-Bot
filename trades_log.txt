@@ -717,3 +717,10 @@ Sell Price: 22.68000000
 Profit/Loss: +0.44%
 Total: $71.90
 
+--- 2025-08-17 06:32:37 UTC ---
+[SELL]
+Pair: PEPEUSDT
+Sell Price: 0.00001125
+Profit/Loss: +0.81%
+Total: $45.32
+
