@@ -739,3 +739,11 @@ Accuracy: 92.75%
 Amount: 0.01732
 Total: $99.78
 
+--- 2025-08-18 21:58:28 UTC ---
+[BUY]
+Pair: YFIUSDT
+Price: 5,570.00000000
+Accuracy: 90.68%
+Amount: 0.03599
+Total: $200.46
+
