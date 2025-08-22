@@ -771,3 +771,11 @@ Accuracy: 92.47%
 Amount: 0.0761
 Total: $350.27
 
+--- 2025-08-22 14:50:13 UTC ---
+[BUY]
+Pair: BTCUSDT
+Price: 115,992.12000000
+Accuracy: 93.82%
+Amount: 0.00172
+Total: $199.51
+
