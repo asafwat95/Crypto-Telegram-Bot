@@ -787,3 +787,11 @@ Accuracy: 93.01%
 Amount: 328.9
 Total: $300.42
 
+--- 2025-08-22 16:41:25 UTC ---
+[BUY]
+Pair: IDUSDT
+Price: 0.16500000
+Accuracy: 94.38%
+Amount: 1212.0
+Total: $199.98
+
